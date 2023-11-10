@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+html{
+	background: url("../image/wall.jpg");
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+body {
+	width : 500px;
+	padding: 0;
+	font-family: verdana, sans-serif;
+	font-size: 15px;
+	margin: 0 auto;
+	margin-top:5%;
+}
+
+#user-box {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	padding: 20px;
+	transform: translate(-50%, -50%);
+	background: rgba(0, 0, 0, .8);
+	box-sizing: border-box;
+	box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+	border-radius: 10px;
+	color: white;
+}
