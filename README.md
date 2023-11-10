@@ -1,2 +1,0 @@
-# jpa_JooLib
- 
