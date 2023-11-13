@@ -18,7 +18,7 @@
 	<section>
 		<h1 style="text-align: center">답글쓰기</h1>
 		<form name="frmReply" method="post" action="addReply">
-			<input type="hidden" name="boardNO" value="${boardNO}" />
+			<input type="hidden" name="id" value="${boardNO}" />
 			<table align="center">
 				<tr>
 					<td align="right">글쓴이&nbsp;</td>
@@ -43,7 +43,7 @@
 					<td align="right"></td>
 					<td>
 						<input type=submit value="답글반영하기" />
-						<button type="button" onclick="location.href='getBoard?boardNO=${boardNO}' ">취소</button>
+						<button type="button" onclick="location.href='getBoard?id=${board.id}' ">취소</button>
 					</td>
 				</tr>
 			</table>

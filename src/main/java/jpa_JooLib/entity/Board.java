@@ -1,12 +1,19 @@
 package jpa_JooLib.entity;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -20,9 +27,16 @@ public class Board {
     @Column(name = "boardno")
     private Integer id;
 
-    @Column(name = "parentno")
-    private Integer parentId = 0;
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parentno")
+    private Board parent;
+	
+	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Board> children = new ArrayList<>();
 
+    @Column(name = "board_level")
+    private Integer level = 0;
+    
     @Column(name = "userid")
     private String userId;
 
@@ -33,7 +47,7 @@ public class Board {
     private String content;
 
     @Column(name = "regtime")
-    private LocalDateTime regTime;
+    private Date regTime;
 
     @Column(name = "hit")
     private Integer hit = 0;
@@ -46,12 +60,28 @@ public class Board {
 		this.id = id;
 	}
 
-	public Integer getParentId() {
-		return parentId;
+	public Board getParent() {
+		return parent;
 	}
 
-	public void setParentId(Integer parentId) {
-		this.parentId = parentId;
+	public void setParent(Board parent) {
+		this.parent = parent;
+	}
+
+	public List<Board> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<Board> children) {
+		this.children = children;
+	}
+
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
 	}
 
 	public String getUserId() {
@@ -78,11 +108,11 @@ public class Board {
 		this.content = content;
 	}
 
-	public LocalDateTime getRegTime() {
+	public Date getRegTime() {
 		return regTime;
 	}
 
-	public void setRegTime(LocalDateTime regTime) {
+	public void setRegTime(Date regTime) {
 		this.regTime = regTime;
 	}
 
@@ -93,5 +123,5 @@ public class Board {
 	public void setHit(Integer hit) {
 		this.hit = hit;
 	}
-
+    
 }

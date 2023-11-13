@@ -55,9 +55,9 @@
 	</header>
 	<section>
 		<button type="button" onclick="location.href='boardList' ">게시판</button>
-		<%-- <c:if test="${ not empty login }">
-		<button type="button" onclick="location.href='replyPage?boardNO=${board.boardNO}' ">답글쓰기</button>
-		</c:if> --%>
+		<c:if test="${ not empty login }">
+		<button type="button" onclick="location.href='replyPage?id=${board.id}' ">답글쓰기</button>
+		</c:if>
 		<br><br>
 		<form name="frmBoard" method="post">
 			<table border="0" align="center">

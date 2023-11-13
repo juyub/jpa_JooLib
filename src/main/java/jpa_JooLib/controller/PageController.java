@@ -14,10 +14,10 @@ import jpa_JooLib.entity.User;
 @RequestMapping("/")
 public class PageController {
 
-//	@RequestMapping("index.html")
-//	public String index_html() {
-//		return "main/index";
-//	}
+	@RequestMapping("index.html")
+	public String index_html() {
+		return "main/index";
+	}
 	
 	@GetMapping("index")
 	public String index() {
@@ -57,6 +57,14 @@ public class PageController {
 		User user = (User) session.getAttribute("login");
 		model.addAttribute("login", user);
 		return "board/addBoard";
+	}
+	
+	@RequestMapping("replyPage")
+	public String replyPage(HttpSession session, String id, Model model) {
+		User user = (User) session.getAttribute("login");
+	    model.addAttribute("boardNO", id);
+	    model.addAttribute("login", user);
+	    return "board/replyBoard";
 	}
 	
 }

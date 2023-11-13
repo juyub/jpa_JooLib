@@ -15,28 +15,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jpa_JooLib.entity.Board;
+import jpa_JooLib.repository.BoardRepository;
 import jpa_JooLib.service.BoardService;
 
 @Controller
 @RequestMapping("/")
 public class BoardController {
-	
+    
     private final BoardService boardService;
 
-    public BoardController(BoardService boardService) {
-        this.boardService = boardService;
-    }
+	public BoardController(BoardService boardService) {
+		this.boardService = boardService;
+	}
     
-    @RequestMapping("boardList")
-    public String list(Model model,
-                       @RequestParam(defaultValue = "0") int page,
-                       @RequestParam(defaultValue = "10") int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
-        Page<Board> boardPage = boardService.readAll(pageable);
-        model.addAttribute("boardList", boardPage.getContent());
-        model.addAttribute("page", boardPage);
-        return "board/boardList";
-    }
+	@RequestMapping("boardList")
+	public String boardList(Model model,
+	                       @RequestParam(defaultValue = "0") int page,
+	                       @RequestParam(defaultValue = "10") int size) {
+	    Pageable pageable = PageRequest.of(page, size, Sort.by("regTime").descending());
+	    Page<Board> boardPage = boardService.getBoardList(pageable);
+	    model.addAttribute("boardList", boardPage.getContent());
+	    model.addAttribute("page", boardPage);
+	    return "board/boardList";
+	}
     
     @RequestMapping("addBoard")
     public String addBoard(@ModelAttribute Board board) {
@@ -49,6 +50,12 @@ public class BoardController {
         Board board = boardService.read(id);
         model.addAttribute("board", board);
         return "board/getBoard";
+    }
+    
+    @RequestMapping("addReply")
+    public String addReply(Board board, @RequestParam("id") Integer parentId) {
+        boardService.addReply(board, parentId);
+        return "redirect:/boardList";
     }
     
     @PutMapping("/{id}")

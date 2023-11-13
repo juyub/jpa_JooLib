@@ -6,6 +6,7 @@
 <%
 request.setCharacterEncoding("UTF-8");
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,108 +45,64 @@ td {
     	
         <tr height="10" align="center" bgcolor="lightgreen">
             <td></td>
-            <td>작성자</td>
             <td>제목</td>
+            <td>작성자</td>
             <td>작성일</td>
             <td>조회수</td>
         </tr>
-        <c:choose>
-            <c:when test="${empty boardList}">
-                <tr height="10">
-                    <td colspan="5">
-                        <p align="center">
-                            <b><span style="font-size: 9pt;">등록된 글이 없습니다.</span></b>
-                        </p>
-                    </td>
-                </tr>
-            </c:when>
-            <c:when test="${!empty boardList}">
-                <c:forEach var="board" items="${boardList}" varStatus="boardNum">
-                    <tr align="center">
-                        <td width="5%">${boardNum.count}</td>
-                        <td width="10%">${board.userId}</td>
-                        <td align='left' width="35%">
-						  <%-- <c:choose>
-						    <c:when test='${board.level > 1 }'>
-						      <c:forEach begin="1" end="${board.level }" step="1">
-						        <span style="padding-left: 25px"></span>
-						      </c:forEach>
-						      <span style="font-size: 12px;">[답변]</span>
-						      <a class='cls1'
-						          href="getBoard?id=${board.id}">${board.title}</a>
-						    </c:when>
-						    <c:otherwise>
-						      <span style="padding-right: 30px"></span>
-						      <a class='cls1'
-						          href="getBoard?id=${board.id}">${board.title }</a>
-						    </c:otherwise>
-						  </c:choose> --%>
-						  <a class='cls1'
-						          href="getBoard?id=${board.id}">${board.title}</a>
-                        </td>
-                        <td width="15%"><fmt:formatDate value="${board.regTime}" pattern="yy/MM/dd HH:mm:ss"/></td>
-                        <td width="10%">${board.hit}</td>
-                    </tr>
-                </c:forEach>
-            </c:when>
-        </c:choose>
+         <c:choose>
+        <c:when test="${empty boardList}">
+            <tr height="10">
+                <td colspan="5">
+                    <p align="center">
+                        <b><span style="font-size: 9pt;">등록된 글이 없습니다.</span></b>
+                    </p>
+                </td>
+            </tr>
+        </c:when>
+        <c:when test="${!empty boardList}">
+	       <c:forEach var="board" items="${boardList}" varStatus="boardNum">
+			    <tr align="center">
+			        <td width="5%">${boardNum.count}</td>
+			        <td align='left' width="35%">
+			            <a class='cls1' href="getBoard?id=${board.id}" 
+			                style="display: inline-block; margin-left: ${board.level * 20}px;">
+			                <c:choose>
+			                    <c:when test="${board.level != 0}">
+			                        [답글] ${board.title}
+			                    </c:when>
+			                    <c:otherwise>
+			                        ${board.title}
+			                    </c:otherwise>
+			                </c:choose>
+			            </a>
+			        </td>
+			        <td width="10%">${board.userId}</td>
+			        <td width="15%"><fmt:formatDate value="${board.regTime}" pattern="yy/MM/dd HH:mm:ss"/></td>
+			        <td width="10%">${board.hit}</td>
+			    </tr>
+			</c:forEach>
+        </c:when>
+    </c:choose>
     </table>
 	<br>
 	<div align="center"	>
-        <c:if test="${page.hasPrevious()}"><a href="?page=${page.number - 1}&size=${page.size}">Previous</a></c:if>
-        <c:forEach begin="0" end="${page.totalPages - 1}" varStatus="i">
-            <c:choose>
-                <c:when test="${i.index == page.number}">
-                    ${i.index + 1}
-                </c:when>
-                <c:otherwise>
-                    <a href="?page=${i.index}&size=${page.size}">${i.index + 1}</a>
-                </c:otherwise>
-            </c:choose>
-        </c:forEach>
-        <c:if test="${page.hasNext()}"><a href="?page=${page.number + 1}&size=${page.size}">Next</a></c:if>
+		<c:if test="${page.totalPages > 0}">
+		    <c:if test="${page.hasPrevious()}"><a href="?page=${page.number - 1}&size=${page.size}">Previous</a></c:if>
+		    <c:forEach begin="0" end="${page.totalPages - 1}" varStatus="i">
+		        <c:choose>
+		            <c:when test="${i.index == page.number}">
+		                ${i.index + 1}
+		            </c:when>
+		            <c:otherwise>
+		                <a href="?page=${i.index}&size=${page.size}">${i.index + 1}</a>
+		            </c:otherwise>
+		        </c:choose>
+		    </c:forEach>
+		    <c:if test="${page.hasNext()}"><a href="?page=${page.number + 1}&size=${page.size}">Next</a></c:if>
+		</c:if>
     </div>
-    <%-- <table align="center">
-        <tr>
-            <!-- 이전 버튼 -->
-            <td>
-                <c:choose>
-                    <c:when test="${currentPage - 1 > 0}">
-                        <a href="getBoardList?pageNo=${currentPage-1}">이전</a>
-                    </c:when>
-                    <c:otherwise>
-                        <span class="disabled">이전</span>
-                    </c:otherwise>
-                </c:choose>
-            </td>
 
-            <!-- 페이지 번호 -->
-            <c:forEach begin="${startPage}" end="${endPage}" var="page">
-                <td>
-                    <c:choose>
-                        <c:when test="${page == currentPage}">
-                            <span>${page}</span>
-                        </c:when>
-                        <c:otherwise>
-                            <a href="getBoardList?pageNo=${page}">${page}</a>
-                        </c:otherwise>
-                    </c:choose>
-                </td>
-            </c:forEach>
-
-            <!-- 다음 버튼 -->
-            <td>
-                <c:choose>
-                    <c:when test="${currentPage + 1 <= totalPageCount}">
-                        <a href="getBoardList?pageNo=${currentPage+1}">다음</a>
-                    </c:when>
-                    <c:otherwise>
-                        <span class="disabled">다음</span>
-                    </c:otherwise>
-                </c:choose>
-            </td>
-        </tr>
-    </table> --%>
 	<br>
 	<form action="searchBoard" method="post">
 	<table align="center">

@@ -9,7 +9,8 @@
 		<failOnMissingWebXml>false</failOnMissingWebXml>
 		<spring.version>5.3.0</spring.version>
 		<hibernate.version>5.6.1.Final</hibernate.version>
-		<hibernate.validator>7.0.1.Final</hibernate.validator>
+		<!-- <hibernate.validator>7.0.1.Final</hibernate.validator> -->
+		<hibernate.validator>6.2.0.Final</hibernate.validator>
 		<c3p0.version>0.9.5.2</c3p0.version>
 		<jstl.version>1.2.1</jstl.version>
 		<tld.version>1.1.2</tld.version>
@@ -92,7 +93,7 @@
 		</dependency>
 
 		<!-- logging -->
-		<!-- 		
+ 		
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
@@ -104,7 +105,7 @@
 			<artifactId>logback-classic</artifactId>
 			<version>1.1.7</version>
 		</dependency>
-		-->
+	
 		
 		<dependency>
 		    <groupId>com.oracle.database.jdbc</groupId>
