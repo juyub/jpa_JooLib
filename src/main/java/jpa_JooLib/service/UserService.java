@@ -16,29 +16,9 @@ public class UserService {
 	public UserService(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
-	
-	public List<User> getUsers() {
-		return userRepository.findAll();
-	}
 
 	public void saveUser(User user) {
 		userRepository.save(user);
-	}
-
-	public Optional<User> getUser(int userno) {
-		return userRepository.findById(userno);
-	}
-
-	public void deleteUser(int userno) {
-		userRepository.deleteById(userno);
-	}
-	
-    public User login(String userid, String password) {
-        User user = userRepository.findByUserid(userid);
-        if(user == null || !user.getPassword().equals(password)) {
-            throw new RuntimeException("Invalid username or password.");
-        }
-        return user;
 	}
 	
 	public void updateUser(int userno, User updatedUser) {
@@ -51,5 +31,26 @@ public class UserService {
 	    user.setRole(updatedUser.getRole());
 	    userRepository.save(user);
 	}
+	
+	public void deleteUser(int userno) {
+		userRepository.deleteById(userno);
+	}
+	
+	public User login(String userid, String password) {
+        User user = userRepository.findByUserid(userid);
+        if(user == null || !user.getPassword().equals(password)) {
+            throw new RuntimeException("Invalid username or password.");
+        }
+        return user;
+	}
+	
+	public List<User> getUsers() {
+		return userRepository.findAll();
+	}
+	
+	public Optional<User> getUser(int userno) {
+		return userRepository.findById(userno);
+	}
+	
 	
 }

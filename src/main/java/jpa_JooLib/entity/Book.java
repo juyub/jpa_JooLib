@@ -13,9 +13,8 @@ public class Book {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	
 	@Column(name = "bookno")
-	private int bookno;
+	private int id;
 	
 	@Column(name = "title")
 	private String title;

@@ -1,7 +1,8 @@
 package jpa_JooLib.entity;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -47,8 +49,22 @@ public class Board {
     private String content;
 
     @Column(name = "regtime")
-    private Date regTime;
-
+    private LocalDateTime regTime;
+    
+    @PrePersist
+    public void prePersist() {
+        this.regTime = LocalDateTime.now();
+    }
+    
+    public String getFormattedRegTime() {
+    	if (this.regTime != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm:ss");
+            return this.regTime.format(formatter);
+        } else {
+            return "N/A"; // or any other default value
+        }
+    }
+    
     @Column(name = "hit")
     private Integer hit = 0;
 
@@ -108,11 +124,11 @@ public class Board {
 		this.content = content;
 	}
 
-	public Date getRegTime() {
+	public LocalDateTime getRegTime() {
 		return regTime;
 	}
 
-	public void setRegTime(Date regTime) {
+	public void setRegTime(LocalDateTime regTime) {
 		this.regTime = regTime;
 	}
 

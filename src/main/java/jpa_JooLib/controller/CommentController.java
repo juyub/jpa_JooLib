@@ -3,17 +3,21 @@ package jpa_JooLib.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import jpa_JooLib.entity.Board;
 import jpa_JooLib.entity.Comment;
 import jpa_JooLib.service.CommentService;
 
 @Controller
-@RequestMapping("/boards/{boardId}/comments")
+@RequestMapping("/")
 public class CommentController {
 	
     private final CommentService commentService;
@@ -22,29 +26,28 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @PostMapping
-    public Comment create(@PathVariable Integer boardId, @RequestBody Comment comment) {
-        return commentService.create(boardId, comment);
+    @RequestMapping(value = "addComment", method = RequestMethod.POST)
+    public String addComment(@ModelAttribute Comment comment) {
+    	commentService.create(comment);
+    	return "redirect:/getBoard?id=" + comment.getBoardId();
     }
 
-    @GetMapping("/{commentId}")
-    public Comment read(@PathVariable Integer boardId, @PathVariable Integer commentId) {
-        return commentService.read(boardId, commentId);
-    }
-
-    @PutMapping("/{commentId}")
-    public Comment update(@PathVariable Integer boardId, @PathVariable Integer commentId, @RequestBody Comment comment) {
-        return commentService.update(boardId, commentId, comment);
-    }
-
-    @DeleteMapping("/{commentId}")
-    public void delete(@PathVariable Integer boardId, @PathVariable Integer commentId) {
-        commentService.delete(boardId, commentId);
+    @RequestMapping(value = "updateComment", method = RequestMethod.POST)
+    public String updateComment(@ModelAttribute Comment comment) {
+        commentService.update(comment);
+        return "redirect:/getBoard?id=" + comment.getBoardId();
     }
     
-    @PostMapping("/reply/{parentCommentId}")
-    public Comment reply(@PathVariable Integer boardId, @PathVariable Integer parentCommentId, @RequestBody Comment comment) {
-        return commentService.reply(boardId, parentCommentId, comment);
+    @RequestMapping("deleteComment")
+    public String deleteComment(@RequestParam("id") Integer id,
+    					 @RequestParam("boardId") Integer boardId) {
+    	commentService.delete(id);
+        return "redirect:/getBoard?id=" + boardId;
     }
     
+//    @GetMapping("/{commentId}")
+//    public Comment read(@PathVariable Integer boardId, @PathVariable Integer commentId) {
+//        return commentService.read(boardId, commentId);
+//    }
+
 }

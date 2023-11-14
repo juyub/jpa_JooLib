@@ -23,7 +23,7 @@
 				<tr>
 					<td align="right">글쓴이&nbsp;</td>
 					<td>
-						<input type="text" size="5" name="userid" value="${login.userid}" readonly />
+						<input type="text" size="5" name="userId" value="${login.userid}" readonly />
 					</td>
 				</tr>
 				<tr>

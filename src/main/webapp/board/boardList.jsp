@@ -78,7 +78,10 @@ td {
 			            </a>
 			        </td>
 			        <td width="10%">${board.userId}</td>
-			        <td width="15%"><fmt:formatDate value="${board.regTime}" pattern="yy/MM/dd HH:mm:ss"/></td>
+			        <td width="15%">
+			        <%-- <fmt:formatDate value="${board.regTime}" pattern="yy/MM/dd HH:mm:ss"/> --%>
+			        ${board.formattedRegTime}
+			        </td>
 			        <td width="10%">${board.hit}</td>
 			    </tr>
 			</c:forEach>

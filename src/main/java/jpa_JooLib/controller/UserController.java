@@ -38,13 +38,13 @@ public class UserController {
 		return user;
 	}
 
-	@RequestMapping("/addUser")
+	@RequestMapping("addUser")
 	public String join(@ModelAttribute("user") User user) {
 		userService.saveUser(user);
 		return "redirect:/index";
 	}
 	
-	@RequestMapping("/login")
+	@RequestMapping("login")
 	public String login(@RequestParam("id") String userid, @RequestParam("password") String password, HttpSession session) {
 	    User user = userService.login(userid, password);
 	    if (user != null) {
@@ -55,21 +55,21 @@ public class UserController {
 	    }
 	}
 
-	@RequestMapping("/logout")
+	@RequestMapping("logout")
 	public String logout(HttpSession session) {
 	    session.invalidate();
 	    return "redirect:/index";
 	}
 
 	
-	@RequestMapping("/userList")
+	@RequestMapping("userList")
 	public String userList(Model model) {
 		List<User> users = userService.getUsers();
 		model.addAttribute("users", users);
 		return "views/userList";
 	}
 
-	@RequestMapping("/updateUser")
+	@RequestMapping("updateUser")
 	public String updateUser(@ModelAttribute User updatedUser, Model model) {
 		userService.updateUser(updatedUser.getUserno(), updatedUser);
 				
@@ -89,15 +89,5 @@ public class UserController {
 		session.invalidate();
 		return "redirect:/index";
 	}
-
-//	@GetMapping("/joinPage")
-//	public String joinPage(Model model) {
-//		User user = new User();
-//		model.addAttribute("user", user);
-//		return "join";
-//	}
-	
-	
-	
 	
 }

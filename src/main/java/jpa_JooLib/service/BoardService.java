@@ -21,6 +21,10 @@ public class BoardService {
 		this.boardRepository = boardRepository;
 	}
 	
+//	public Page<Board> readAll(Pageable pageable) {
+//		return boardRepository.findAll(pageable);
+//	}
+	
 	@Transactional
 	public Page<Board> getBoardList(Pageable pageable) {
 	    Page<Board> boards = boardRepository.findByParentIsNull(pageable);
@@ -46,6 +50,28 @@ public class BoardService {
 	public Board read(Integer id) {
 		return boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Board not found."));
 	}
+	
+	public void update(Board board) {
+	    Board existingBoard = boardRepository.findById(board.getId())
+	        .orElseThrow(() -> new IllegalArgumentException("Invalid board Id:" + board.getId()));
+	    existingBoard.setTitle(board.getTitle());
+	    existingBoard.setContent(board.getContent());
+	    boardRepository.save(existingBoard);
+	}
+
+//	public void delete(Integer id) {
+//		boardRepository.deleteById(id);
+//	}	
+	
+	@Transactional
+	public void deleteWithChildren(Integer id) {
+	    Board board = boardRepository.findById(id)
+	        .orElseThrow(() -> new IllegalArgumentException("Invalid board Id:" + id));
+	    for(Board child : board.getChildren()){
+	        boardRepository.delete(child);
+	    }
+	    boardRepository.delete(board);
+	}  
     
 	@Transactional
 	public void addReply(Board board, Integer parentId) {
@@ -63,24 +89,5 @@ public class BoardService {
 
 	    boardRepository.save(newBoard);
 	}
-	
-//    
-    
-	public Page<Board> readAll(Pageable pageable) {
-		return boardRepository.findAll(pageable);
-	}
-
-	public Board update(Integer id, Board board) {
-		Board existingBoard = read(id);
-		existingBoard.setTitle(board.getTitle());
-		existingBoard.setContent(board.getContent());
-		return boardRepository.save(existingBoard);
-	}
-
-	public void delete(Integer id) {
-		boardRepository.deleteById(id);
-	}
-
-	
 	
 }

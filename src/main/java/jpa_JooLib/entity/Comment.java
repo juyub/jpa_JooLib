@@ -1,17 +1,14 @@
 package jpa_JooLib.entity;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -22,19 +19,11 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_jpa_comment_commentNO")
     @SequenceGenerator(name = "seq_jpa_comment_commentNO", sequenceName = "seq_jpa_comment_commentNO", allocationSize = 1)
-    @Column(name = "commentNO")
+    @Column(name = "commentno")
     private Integer id;
-
-    @ManyToOne
-    @JoinColumn(name = "parent_id")
-    private Comment parent;
-
-    @OneToMany(mappedBy = "parent")
-    private List<Comment> replies = new ArrayList<>();
     
-    @ManyToOne
-    @JoinColumn(name = "boardNO")
-    private Board board;
+    @Column(name = "boardno")
+    private Integer boardId;
 
     @Column(name = "userid")
     private String userId;
@@ -45,6 +34,20 @@ public class Comment {
     @Column(name = "regtime")
     private LocalDateTime regTime;
 
+    @PrePersist
+    public void prePersist() {
+        this.regTime = LocalDateTime.now();
+    }
+    
+    public String getFormattedRegTime() {
+    	if (this.regTime != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm:ss");
+            return this.regTime.format(formatter);
+        } else {
+            return " "; // or any other default value
+        }
+    }
+    
 	public Integer getId() {
 		return id;
 	}
@@ -53,28 +56,12 @@ public class Comment {
 		this.id = id;
 	}
 
-	public Comment getParent() {
-		return parent;
+	public Integer getBoardId() {
+		return boardId;
 	}
 
-	public void setParent(Comment parent) {
-		this.parent = parent;
-	}
-
-	public List<Comment> getReplies() {
-		return replies;
-	}
-
-	public void setReplies(List<Comment> replies) {
-		this.replies = replies;
-	}
-
-	public Board getBoard() {
-		return board;
-	}
-
-	public void setBoard(Board board) {
-		this.board = board;
+	public void setBoardId(Integer boardId) {
+		this.boardId = boardId;
 	}
 
 	public String getUserId() {

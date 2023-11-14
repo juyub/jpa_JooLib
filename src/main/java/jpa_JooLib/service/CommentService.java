@@ -1,51 +1,47 @@
 package jpa_JooLib.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import jpa_JooLib.entity.Board;
 import jpa_JooLib.entity.Comment;
-import jpa_JooLib.repository.BoardRepository;
 import jpa_JooLib.repository.CommentRepository;
 
 @Service
 public class CommentService {
 
-    private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
 
-    public CommentService(BoardRepository boardRepository, CommentRepository commentRepository) {
-        this.boardRepository = boardRepository;
+    public CommentService(CommentRepository commentRepository) {
         this.commentRepository = commentRepository;
     }
 
-    public Comment create(Integer boardId, Comment comment) {  
-        Board board = boardRepository.findById(boardId).orElseThrow(() -> new IllegalArgumentException("Board not found."));
-        comment.setBoard(board);
+//  public Comment read(Integer id) {  
+//  return commentRepository.findById(id)
+//          .orElseThrow(() -> new IllegalArgumentException("Comment not found."));
+//}
+    
+    public List<Comment> getCommentsByBoardId(Integer boardId) {
+        return commentRepository.findByBoardId(boardId);
+    }
+    
+    public Comment create(Comment comment) {
         return commentRepository.save(comment);
     }
 
-    public Comment read(Integer boardId, Integer commentId) {  
-        return commentRepository.findByIdAndBoardId(commentId, boardId)
-                .orElseThrow(() -> new IllegalArgumentException("Comment not found."));
-    }
-
-    public Comment update(Integer boardId, Integer commentId, Comment comment) {  
-        Comment existingComment = read(boardId, commentId);
+    public void update(Comment comment) {
+        Comment existingComment = commentRepository.findById(comment.getId())
+            .orElseThrow(() -> new IllegalArgumentException("Invalid comment Id:" + comment.getId()));
         existingComment.setContent(comment.getContent());
-        return commentRepository.save(existingComment);
+        commentRepository.save(existingComment);
     }
 
-    public void delete(Integer boardId, Integer commentId) {  
-        Comment comment = read(boardId, commentId);
-        commentRepository.delete(comment);
+    public void delete(Integer id) {
+        commentRepository.deleteById(id);
     }
-
-    public Comment reply(Integer boardId, Integer parentCommentId, Comment comment) {  // Changed from Long to Integer
-        Board board = boardRepository.findById(boardId).orElseThrow(() -> new IllegalArgumentException("Board not found."));
-        Comment parent = commentRepository.findByIdAndBoardId(parentCommentId, boardId)
-                .orElseThrow(() -> new IllegalArgumentException("Comment not found."));
-        comment.setBoard(board);
-        comment.setParent(parent);
-        return commentRepository.save(comment);
+    
+    public void deleteByBoardId(Integer boardId) {
+        commentRepository.deleteByBoardId(boardId);
     }
+   
 }
