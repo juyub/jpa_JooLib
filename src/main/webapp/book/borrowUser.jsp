@@ -38,8 +38,8 @@ td {
 					</tr>
 					<c:forEach var="borrow" items="${ borrowUser }">
 						<tr class="bottom-line">
-							<td>${ borrow.borrowno }</td>
-							<td>${ borrow.booktitle }</td>
+							<td>${ borrow.borrowNo }</td>
+							<td>${ borrow.book.title }</td>
 							<td>
 							<fmt:formatDate value="${ borrow.borrowdate }" pattern="yy/MM/dd" var="formattedBorrowDate" />
 							${formattedBorrowDate}

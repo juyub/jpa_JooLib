@@ -37,7 +37,7 @@
 				<tr>
 					<td align="right">작성자</td> <!-- size="67" -->
 					<td colspan="2"><input type="text"  maxlength="500"
-						name="userId" value="${login.userid}" readonly/></td>
+						name="userId" value="${login.userId}" readonly/></td>
 				</tr>
 				<tr>
 					<td align="right">글제목</td>

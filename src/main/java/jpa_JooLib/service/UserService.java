@@ -21,8 +21,8 @@ public class UserService {
 		userRepository.save(user);
 	}
 	
-	public void updateUser(int userno, User updatedUser) {
-	    User user = userRepository.findById(userno)
+	public void updateUser(int userNo, User updatedUser) {
+	    User user = userRepository.findById(userNo)
 	                               .orElseThrow(() -> new RuntimeException("User not found"));
 	    user.setPassword(updatedUser.getPassword());
 	    user.setName(updatedUser.getName());
@@ -32,12 +32,12 @@ public class UserService {
 	    userRepository.save(user);
 	}
 	
-	public void deleteUser(int userno) {
-		userRepository.deleteById(userno);
+	public void deleteUser(int userNo) {
+		userRepository.deleteById(userNo);
 	}
 	
-	public User login(String userid, String password) {
-        User user = userRepository.findByUserid(userid);
+	public User login(String userId, String password) {
+        User user = userRepository.findByUserId(userId);
         if(user == null || !user.getPassword().equals(password)) {
             throw new RuntimeException("Invalid username or password.");
         }
@@ -48,8 +48,8 @@ public class UserService {
 		return userRepository.findAll();
 	}
 	
-	public Optional<User> getUser(int userno) {
-		return userRepository.findById(userno);
+	public Optional<User> getUser(int userNo) {
+		return userRepository.findById(userNo);
 	}
 	
 	

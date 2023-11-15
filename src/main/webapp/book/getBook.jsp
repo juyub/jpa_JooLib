@@ -20,8 +20,8 @@ td {
 		let borrowForm = document.forms[0];
 		let availablen = parseInt("${book.availablen}");
 		let borrown = parseInt("${login.borrown}");
-		let userno1 = parseInt("${login.userno}");
-		let userno2 = parseInt("${borrow.userno}");
+		let userno1 = parseInt("${login.userNo}");
+		let userno2 = parseInt("${borrow.userNo}");
 		
 		if (availablen <= 0) {
 			alert('대여가능도서가 없습니다.');
@@ -50,7 +50,7 @@ td {
 	
 	
 	<form action="updateBook" method="post"> 
-    <input name="bookno" type="hidden" value="${ book.bookno }"> 
+    <input name="bookNo" type="hidden" value="${ book.bookNo }"> 
     <table border="1"> 
         <tr>
             <td rowspan="5" align="center">
@@ -102,159 +102,27 @@ td {
            		 	</c:otherwise>
         		</c:choose>
             </td>
+            <td>
+        		대여가능권수 : ${book.availablen}권 
+        	</td>
         </tr>
         <c:if test="${ login.role == 'admin' }">
             <tr>
                 <td>
                     <input type="submit" value="수정" />
-                    <button><a href="deleteBook?bookno=${ book.bookno }">삭제</a></button>
+                    <button><a href="deleteBook?bookNo=${ book.bookNo }">삭제</a></button>
                 </td>
             </tr>
         </c:if>
     </table>
 	</form>
-	
-	
-			<%--
-			<form action="addBook" method="post">
-			<table border="1">
-				<tr>
-					<td rowspan="5" align="center">
-						<img src="${param.image}" width="100">
-						<input type="hidden" name="image" value="${param.image}"/>
-					</td>
-					<td >
-						제목 
-					</td>
-					<td colspan="3">
-						<input type="text" name="title" value="${param.title}"  style="width: 80%;"/>
-					</td>
-				</tr>
-				<tr>
-					<td >
-						isbn 
-					</td>
-					<td colspan="3">
-						<input type="text" name="isbn" value="${param.isbn}" maxlength="13"/>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						저자
-					</td>
-					<td>
-						<input type="text" name="author" value="${param.author}" />
-					</td>
-					<td>
-						장르
-					</td>
-					<td>
-						<input type="text" name="category" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						출판사
-					</td>
-					<td>
-						<input type="text" name="publisher" value="${param.publisher}"/>
-					</td>
-					<td>
-						보유권수
-					</td>
-					<td>
-						<input type="text" name="totaln" pattern="[0-9]+" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						출판년도
-					</td>
-					<td>
-						<input type="text" name="publicationyear" value="${param.publicationyear}" pattern="[0-9]+"/>
-					</td>
-					<td>
-						대출가능권수
-					</td>
-					<td>
-						<input type="text" name="availablen" pattern="[0-9]+" />
-					</td>
-				</tr>
-				<tr>
-					<td colspan="5">
-						<textarea name="description" rows="8" cols="100">${param.description}</textarea>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="5"><input type="submit" value="등록" /></td>
-				</tr>
-				--%>
-	
-	<%--
-	<form action="updateBook" method="post"> 
-    <input name="bookno" type="hidden" value="${ book.bookno }"> 
-    <table border="1"> 
-        <tr> 
-            <td>제목</td> 
-            <td><input type="text" name="title" value="${book.title}" ${login.role == 'admin' ? '' : 'readonly'} /></td> 
-        </tr>
-        <tr> 
-            <td>저자</td> 
-            <td><input type="text" name="author" value="${book.author}" ${login.role == 'admin' ? '' : 'readonly'} /></td> 
-        </tr>
-        <tr> 
-            <td>출판사</td> 
-            <td><input type="text" name="publisher" value="${book.publisher}" ${login.role == 'admin' ? '' : 'readonly'} /></td> 
-        </tr>
-        <tr> 
-            <td>출판연도</td> 
-            <td><input type="text" name="publicationyear" value="${book.publicationyear}" ${login.role == 'admin' ? '' : 'readonly'} /></td> 
-        </tr>
-        <tr> 
-            <td>ISBN</td> 
-            <td><input type="text" name="isbn" value="${book.isbn}" ${login.role == 'admin' ? '' : 'readonly'} /></td> 
-        </tr>
-        <tr> 
-            <td>장르</td> 
-            <td><input type="text" name="category" value="${book.category}" ${login.role == 'admin' ? '' : 'readonly'} /></td> 
-        </tr>
-        <tr>
-            <td>보유권수</td>
-            <td><input type="text" name="totaln" value="${book.totaln}" ${login.role == 'admin' ? '' : 'readonly'} /></td>
-        </tr>
-        <tr>
-            <td>대여가능권수</td>
-            <td><input type="text" name="availablen" value="${book.availablen}" ${login.role == 'admin' ? '' : 'readonly'} />
-            </td>
-            <td>	
-            	<c:choose>
-           			<c:when test="${book.availablen == 0}">
-                		대여불가
-            		</c:when>
-           			<c:otherwise>
-              		  	대여가능
-           		 	</c:otherwise>
-        		</c:choose>
-            </td>
-        </tr>
-        <c:if test="${ login.role == 'admin' }">
-            <tr>
-                <td colspan="3">
-                    <input type="submit" value="수정" />
-                    <button><a href="deleteBook?bookno=${ book.bookno }">삭제</a></button>
-                </td>
-            </tr>
-        </c:if>
-    </table>
-	</form>
-	--%>
 	
 	<c:if test="${ login.role == 'user' }">
 	<br>
     <form action="borrowBook" method="post" onsubmit="return checkForm()">
-        <input name="bookno" type="hidden" value="${ book.bookno }">
-        <input name="userno" type="hidden" value="${ login.userno }"> 
-        <input name="userno" type="hidden" value="${ borrow.userno }"> 
+        <input name="bookNo" type="hidden" value="${ book.bookNo }">
+		<input name="userNo" type="hidden" value="${ login.userNo }"> 
+        <input name="userNo" type="hidden" value="${ borrow.userNo }">
         <%-- <input name="userno" type="hidden" value="${ login.borrown }">  --%>
         <button type="submit">대출</button>
     </form>

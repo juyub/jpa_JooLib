@@ -29,20 +29,20 @@ public class CommentController {
     @RequestMapping(value = "addComment", method = RequestMethod.POST)
     public String addComment(@ModelAttribute Comment comment) {
     	commentService.create(comment);
-    	return "redirect:/getBoard?id=" + comment.getBoardId();
+    	return "redirect:/getBoard?boardNo=" + comment.getBoardNo();
     }
 
     @RequestMapping(value = "updateComment", method = RequestMethod.POST)
     public String updateComment(@ModelAttribute Comment comment) {
         commentService.update(comment);
-        return "redirect:/getBoard?id=" + comment.getBoardId();
+        return "redirect:/getBoard?boardNo=" + comment.getBoardNo();
     }
     
     @RequestMapping("deleteComment")
-    public String deleteComment(@RequestParam("id") Integer id,
-    					 @RequestParam("boardId") Integer boardId) {
-    	commentService.delete(id);
-        return "redirect:/getBoard?id=" + boardId;
+    public String deleteComment(@RequestParam("commentNo") Integer commentNo,
+    					 @RequestParam("boardNo") Integer boardNo) {
+    	commentService.delete(commentNo);
+        return "redirect:/getBoard?boardNo=" + boardNo;
     }
     
 //    @GetMapping("/{commentId}")

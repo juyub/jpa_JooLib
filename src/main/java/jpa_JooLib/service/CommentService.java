@@ -21,8 +21,8 @@ public class CommentService {
 //          .orElseThrow(() -> new IllegalArgumentException("Comment not found."));
 //}
     
-    public List<Comment> getCommentsByBoardId(Integer boardId) {
-        return commentRepository.findByBoardId(boardId);
+    public List<Comment> getCommentsByBoardNo(Integer boardNo) {
+        return commentRepository.findByBoardNo(boardNo);
     }
     
     public Comment create(Comment comment) {
@@ -30,8 +30,8 @@ public class CommentService {
     }
 
     public void update(Comment comment) {
-        Comment existingComment = commentRepository.findById(comment.getId())
-            .orElseThrow(() -> new IllegalArgumentException("Invalid comment Id:" + comment.getId()));
+        Comment existingComment = commentRepository.findById(comment.getCommentNo())
+            .orElseThrow(() -> new IllegalArgumentException("Invalid comment Id:" + comment.getCommentNo()));
         existingComment.setContent(comment.getContent());
         commentRepository.save(existingComment);
     }
@@ -40,8 +40,8 @@ public class CommentService {
         commentRepository.deleteById(id);
     }
     
-    public void deleteByBoardId(Integer boardId) {
-        commentRepository.deleteByBoardId(boardId);
+    public void deleteByBoardNo(Integer boardNo) {
+        commentRepository.deleteByBoardNo(boardNo);
     }
    
 }

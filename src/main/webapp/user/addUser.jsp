@@ -173,7 +173,7 @@ td {
 			<table id="join-table">
 				<tr>
 					<td><label for="id">아이디</label></td>
-					<td><input type="text" class="form-control" id="id" name="userid"
+					<td><input type="text" class="form-control" id="id" name="userId"
 						pattern="[a-z0-9]+" />
 						<span class="tip">* 영어 소문자와 숫자.</span></td>
 				</tr>

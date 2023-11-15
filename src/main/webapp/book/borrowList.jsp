@@ -20,7 +20,7 @@ td {
 <script>
 	function showAlertAndRedirect() {
 		alert('접근 권한이 없습니다.');
-		location.href = "indexPage.do";
+		location.href = "index";
 	}
 </script>
 
@@ -48,10 +48,12 @@ td {
 				</tr>
 				<c:forEach var="borrow" items="${ borrowList }">
 					<tr class="bottom-line">
-						<form action="returnBook.do" method="post">
-							<td>${ borrow.borrowno }</td>
-							<td>${ borrow.booktitle }</td>
-							<td>${ borrow.username }</td>
+						<form action="returnBook" method="post">
+							<td>${ borrow.borrowNo }</td>
+							<td>${ borrow.book.title }</td>
+							<td>
+							${ borrow.user.name }(${ borrow.user.userId })
+							</td>	
 							<td>
 							<fmt:formatDate value="${ borrow.borrowdate }" pattern="yy/MM/dd" var="formattedBorrowDate" />
 							${formattedBorrowDate}
@@ -73,9 +75,9 @@ td {
 							</c:if>
 							<c:if test="${borrow.returndate == null}">
 								<td>
-								<input name="userno" type="hidden" value="${ borrow.userno }">
-								<input name="bookno" type="hidden" value="${ borrow.bookno }">
-								<input name="borrowno" type="hidden" value="${ borrow.borrowno }">
+								<input name="userNo" type="hidden" value="${ borrow.user.userNo }">
+								<input name="bookNo" type="hidden" value="${ borrow.book.bookNo }">
+								<input name="borrowNo" type="hidden" value="${ borrow.borrowNo }">
 								<input	type="submit" value="반납">
 								</td>
 							</c:if>

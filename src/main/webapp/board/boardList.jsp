@@ -65,7 +65,7 @@ td {
 			    <tr align="center">
 			        <td width="5%">${boardNum.count}</td>
 			        <td align='left' width="35%">
-			            <a class='cls1' href="getBoard?id=${board.id}" 
+			            <a class='cls1' href="getBoard?boardNo=${board.boardNo}" 
 			                style="display: inline-block; margin-left: ${board.level * 20}px;">
 			                <c:choose>
 			                    <c:when test="${board.level != 0}">
@@ -91,6 +91,22 @@ td {
 	<br>
 	<div align="center"	>
 		<c:if test="${page.totalPages > 0}">
+		    <c:if test="${page.hasPrevious()}"><a href="?page=${page.number}&size=${page.size}">Previous</a></c:if>
+		    <c:forEach begin="0" end="${page.totalPages - 1}" varStatus="i">
+		        <c:choose>
+		            <c:when test="${i.index == page.number}">
+		                ${i.index + 1}
+		            </c:when>
+		            <c:otherwise>
+		                <a href="?page=${i.index + 1}&size=${page.size}">${i.index + 1}</a>
+		            </c:otherwise>
+		        </c:choose>
+		    </c:forEach>
+		    <c:if test="${page.hasNext()}"><a href="?page=${page.number + 2}&size=${page.size}">Next</a></c:if>
+		</c:if>
+
+		<%--
+		<c:if test="${page.totalPages > 0}">
 		    <c:if test="${page.hasPrevious()}"><a href="?page=${page.number - 1}&size=${page.size}">Previous</a></c:if>
 		    <c:forEach begin="0" end="${page.totalPages - 1}" varStatus="i">
 		        <c:choose>
@@ -104,6 +120,7 @@ td {
 		    </c:forEach>
 		    <c:if test="${page.hasNext()}"><a href="?page=${page.number + 1}&size=${page.size}">Next</a></c:if>
 		</c:if>
+		--%>
     </div>
 
 	<br>

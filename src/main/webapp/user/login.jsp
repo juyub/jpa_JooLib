@@ -75,7 +75,7 @@ body {
 			onsubmit="return checkForm()">
 			<div class="form-group">
 				<label for="id">ID</label> 
-				<input type="text" class="form-control" id="id" name="id">
+				<input type="text" class="form-control" id="id" name="userId">
 			</div>
 			<div class="form-group">
 				<label for="password">Password</label>

@@ -96,57 +96,11 @@ td {
 				<tr>
 					<td colspan="5">
 						<textarea name="description" rows="8" cols="100">${param.description}</textarea>
-						<%-- <input type="text" name="description" value="${param.description}"/> --%>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="5"><input type="submit" value="등록" /></td>
 				</tr>
-			
-				<%-- 			
-				<tr>
-					<td>표지</td>
-					<td><img src="${param.image}" width="100">
-					<input type="hidden" name="image" value="${param.image}"/></td>
-				</tr>
-				<tr>
-					<td>제목</td>
-					<td><input type="text" name="title" value="${param.title}" /></td>
-				</tr>
-				<tr>
-					<td>저자</td>
-					<td><input type="text" name="author" value="${param.author}" /></td>
-				</tr>
-				<tr>
-					<td>출판사</td>
-					<td><input type="text" name="publisher" value="${param.publisher}"/></td>
-				</tr>
-				<tr>
-					<td>출판년도</td>
-					<td><input type="text" name="publicationyear" value="${param.publicationyear}" pattern="[0-9]+"/></td>
-				</tr>
-				<tr>
-					<td>isbn</td>
-					<td><input type="text" name="isbn" value="${param.isbn}" maxlength="13"/></td>
-				</tr>
-				<tr>
-					<td>장르</td>
-					<td><input type="text" name="category" /></td>
-				</tr>
-				<tr>
-					<td>보유권수</td>
-					<td><input type="text" name="totaln" pattern="[0-9]+" /></td>
-				</tr>
-				<tr>
-					<td>대출가능권수</td>
-					<td><input type="text" name="availablen" pattern="[0-9]+" /></td>
-				</tr>
-				<tr>
-					<td>책소개</td>
-					<td><input type="text" name="description" value="${param.description}"/></td>
-				</tr>
-				--%>
-				
 			</table>
 		</form>
 		</div>

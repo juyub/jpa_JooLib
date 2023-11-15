@@ -1,10 +1,9 @@
-package jpa_JooLib.naver;
+package jpa_JooLib.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URLEncoder;
-import java.util.Map;
 import java.util.Properties;
 
 import org.springframework.http.HttpEntity;
@@ -15,13 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequestMapping("/")
@@ -45,23 +41,11 @@ public class NaverController {
         }
     }
 	
-    @RequestMapping("naverBooks")
+    @RequestMapping(value = "naverBooks", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+    @ResponseBody
     public String searchBooks(@RequestParam("query") String query, Model model) {
         String booksJson = findBooks(query);
-        ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, Object> books = null;
-
-        try {
-            books = objectMapper.readValue(booksJson, new TypeReference<Map<String, Object>>() {});
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
-        model.addAttribute("books", books);
-
-        return "book/naverBooks";
+        return booksJson;
     }
     
 	private String findBooks(String query) {
@@ -93,12 +77,3 @@ public class NaverController {
     }
 
 }
-
-//@RequestMapping("naverBooks")
-//public String searchBooks(@RequestParam("query") String query, Model model) {
-//
-//  String booksJson = findBooks(query);
-//  model.addAttribute("booksJson", booksJson);
-//
-//  return "book/naverBooks";
-//}

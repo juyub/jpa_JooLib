@@ -54,12 +54,12 @@ table {
 			<table border="1">
 				<tr>
 					<td>회원번호</td>
-					<td><input name="userno" type="text" value="${user.userno}"
+					<td><input name="userNo" type="text" value="${user.userNo}"
 						readonly /></td>
 				</tr>
 				<tr>
 					<td>아이디</td>
-					<td><input type="text" name="userid" value="${user.userid}"
+					<td><input type="text" name="userId" value="${user.userId}"
 						readonly /></td>
 				</tr>
 				<tr>
@@ -113,7 +113,7 @@ table {
 		</form>
 		<br>
 		<form action="deleteUser" method="post" onsubmit="confirmDelete()">
-        <input name="userno" type="hidden" value="${ user.userno }"> 
+        <input name="userNo" type="hidden" value="${ user.userNo }"> 
         <button type="submit">탈퇴</button>
     	</form>
 		</div>

@@ -60,15 +60,15 @@
 	<section>
 		<button type="button" onclick="location.href='boardList' ">게시판</button>
 		<c:if test="${ not empty login }">
-			<button type="button" onclick="location.href='replyPage?id=${board.id}' ">답글쓰기</button>
+			<button type="button" onclick="location.href='replyPage?boardNo=${board.boardNo}' ">답글쓰기</button>
 		</c:if>
 		<br> <br>
 		<form name="frmBoard" method="post">
 			<table border="0" align="center">
 				<tr>
 					<td width="150" align="center" bgcolor="#FF9933">글번호</td>
-					<td><input type="text" value="${board.id }" disabled /> <input
-						type="hidden" name="id" value="${board.id}" /></td>
+					<td><input type="text" value="${board.boardNo }" disabled /> <input
+						type="hidden" name="boardNo" value="${board.boardNo}" /></td>
 				</tr>
 				<tr>
 					<td width="150" align="center" bgcolor="#FF9933">작성자 아이디</td>
@@ -102,9 +102,9 @@
 
 				<tr id="tr_btn">
 					<td colspan=2 align="center">
-					<c:if test="${ login.userid == board.userId }">
+					<c:if test="${ login.userId == board.userId }">
 						<input type=button value="수정하기" onClick="fn_enable(this.form)">
-						<button type="button" onclick="location.href='deleteBoard?id=${board.id}' ">삭제하기</button>
+						<button type="button" onclick="location.href='deleteBoard?boardNo=${board.boardNo}' ">삭제하기</button>
 						<%-- <input type=button value="삭제하기" onClick="fn_remove_board('deleteBoard', ${board.id})"> --%>
 					</c:if>
 					</td>
@@ -119,9 +119,9 @@
 			<form name="frmComment" method="post" action="addComment">
 				<table border="0" align="center" width="60%">
 					<tr>
-						<input type="hidden" name="boardId" value="${board.id}" />
-						<input type="hidden" name="userId" value="${login.userid}" />
-						<td>${login.userid}</td>
+						<input type="hidden" name="boardNo" value="${board.boardNo}" />
+						<input type="hidden" name="userId" value="${login.userId}" />
+						<td>${login.userId}</td>
 						<td><input type="text" name="content" style="width: 100%" /></td>
 						<td></td>
 						<td><input type="submit" value="덧글 작성" /></td>
@@ -149,18 +149,18 @@
 						${comment.formattedRegTime}
 					</td>
 					<td align="right">
-						<c:if test="${comment.userId == login.userid}">
-								<input type="hidden" name="id" value="${comment.id}" />
-								<input type="hidden" name="boardId" value="${board.id}" />
+						<c:if test="${comment.userId == login.userId}">
+								<input type="hidden" name="commentNo" value="${comment.commentNo}" />
+								<input type="hidden" name="boardNo" value="${board.boardNo}" />
 								<button type="submit">수정</button>
 							</form>
 						</c:if>
 					</td>
 					<td align="left" >
-						<c:if test="${comment.userId == login.userid}">
+						<c:if test="${comment.userId == login.userId}">
 							<form action="deleteComment" method="post">
-								<input type="hidden" name="id" value="${comment.id}" />
-								<input type="hidden" name="boardId" value="${board.id}" />
+								<input type="hidden" name="commentNo" value="${comment.commentNo}" />
+								<input type="hidden" name="boardNo" value="${board.boardNo}" />
 								<button type="submit">삭제</button>
 							</form>
 						</c:if>	

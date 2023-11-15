@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import jpa_JooLib.entity.Board;
 import jpa_JooLib.entity.Book;
 import jpa_JooLib.repository.BookRepository;
 
@@ -21,16 +22,20 @@ public class BookService {
 		return bookRepository.findAll();
 	}
 
+	public Book read(int bookNo) {
+		return bookRepository.findById(bookNo).orElseThrow(() -> new IllegalArgumentException("Book not found."));
+	}
+	
 	public void saveBook(Book book) {
 		bookRepository.save(book);
 	}
-
-	public Optional<Book> getBook(int bookno) {
-		return bookRepository.findById(bookno);
-	}
-
-	public void deleteBook(int bookno) {
-		bookRepository.deleteById(bookno);
-	}
+	
+//	public Optional<Book> getBook(int bookno) {
+//		return bookRepository.findById(bookno);
+//	}
+//
+//	public void deleteBook(int bookno) {
+//		bookRepository.deleteById(bookno);
+//	}
 
 }

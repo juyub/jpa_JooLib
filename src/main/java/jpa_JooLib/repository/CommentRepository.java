@@ -10,8 +10,8 @@ import jpa_JooLib.entity.Comment;
 @Repository("commentRepository")
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
-	List<Comment> findByBoardId(Integer boardId);
+	List<Comment> findByBoardNo(Integer boardNo);
 	
-	void deleteByBoardId(Integer boardId);
+	void deleteByBoardNo(Integer boardNo);
 	
 }

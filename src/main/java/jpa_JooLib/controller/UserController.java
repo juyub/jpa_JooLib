@@ -40,13 +40,18 @@ public class UserController {
 
 	@RequestMapping("addUser")
 	public String join(@ModelAttribute("user") User user) {
+		
+		if ("admin".equals(user.getUserId())) {
+	        user.setRole("admin");
+	    }
+		
 		userService.saveUser(user);
 		return "redirect:/index";
 	}
 	
 	@RequestMapping("login")
-	public String login(@RequestParam("id") String userid, @RequestParam("password") String password, HttpSession session) {
-	    User user = userService.login(userid, password);
+	public String login(@RequestParam("userId") String userId, @RequestParam("password") String password, HttpSession session) {
+	    User user = userService.login(userId, password);
 	    if (user != null) {
 	        session.setAttribute("login", user);
 	        return "redirect:/index";
@@ -71,9 +76,9 @@ public class UserController {
 
 	@RequestMapping("updateUser")
 	public String updateUser(@ModelAttribute User updatedUser, Model model) {
-		userService.updateUser(updatedUser.getUserno(), updatedUser);
+		userService.updateUser(updatedUser.getUserNo(), updatedUser);
 				
-		Optional<User> updatedUserOptional = userService.getUser(updatedUser.getUserno());
+		Optional<User> updatedUserOptional = userService.getUser(updatedUser.getUserNo());
 	    if(updatedUserOptional.isPresent()) {
 	        User user = updatedUserOptional.get();
 	        model.addAttribute("user", user);
@@ -83,7 +88,7 @@ public class UserController {
 	    return "user/getUserNo";
 	}
 
-	@RequestMapping("/deleteUser")
+	@RequestMapping("deleteUser")
 	public String deleteUser(@RequestParam("userno") int userno, HttpSession session) {
 		userService.deleteUser(userno);
 		session.invalidate();

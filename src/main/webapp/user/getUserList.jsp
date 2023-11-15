@@ -45,8 +45,8 @@ td {
 			</tr>
 			<c:forEach var="user" items="${ userList }">
 				<tr>
-					<td>${ user.userno }</td>
-					<td><a href="getUserId?userid=${ user.userid }">${ user.userid }</a></td>
+					<td>${ user.userNo }</td>
+					<td><a href="getUserId?userid=${ user.userid }">${ user.userId }</a></td>
 					<td>${ user.name }</td>
 					<td>${ user.phone }</td>
 					<td>

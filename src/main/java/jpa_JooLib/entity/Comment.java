@@ -17,21 +17,13 @@ import javax.persistence.Table;
 public class Comment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_jpa_comment_commentNO")
-    @SequenceGenerator(name = "seq_jpa_comment_commentNO", sequenceName = "seq_jpa_comment_commentNO", allocationSize = 1)
-    @Column(name = "commentno")
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_jpa_comment_commentNo")
+    @SequenceGenerator(name = "seq_jpa_comment_commentNo", sequenceName = "seq_jpa_comment_commentNo", allocationSize = 1)
+    private int commentNo;
     
-    @Column(name = "boardno")
-    private Integer boardId;
-
-    @Column(name = "userid")
+    private int boardNo;
     private String userId;
-
-    @Column(name = "content")
     private String content;
-
-    @Column(name = "regtime")
     private LocalDateTime regTime;
 
     @PrePersist
@@ -47,21 +39,21 @@ public class Comment {
             return " "; // or any other default value
         }
     }
-    
-	public Integer getId() {
-		return id;
+
+	public int getCommentNo() {
+		return commentNo;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setCommentNo(int commentNo) {
+		this.commentNo = commentNo;
 	}
 
-	public Integer getBoardId() {
-		return boardId;
+	public int getBoardNo() {
+		return boardNo;
 	}
 
-	public void setBoardId(Integer boardId) {
-		this.boardId = boardId;
+	public void setBoardNo(int boardNo) {
+		this.boardNo = boardNo;
 	}
 
 	public String getUserId() {

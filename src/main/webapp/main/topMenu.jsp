@@ -21,7 +21,7 @@
 		<td colspan="2" align="center">
 			&nbsp;
 			<c:if test="${ not empty login }">
-			[ ${ login.name }(${ login.userid })님 로그인중... ]
+			[ ${ login.name }(${ login.userId })님 로그인중... ]
 			</c:if>
 		</td>
 		<td align="center">
@@ -32,7 +32,7 @@
 			 		<%-- <a href="${contextPath}/user/login.jsp">로그인</a> --%>
 			 	</c:when>
 			 	<c:otherwise> 
-			 		<a href="UserPage">마이페이지</a> |
+			 		<a href="userPage">마이페이지</a> |
 			 		<a href="logout">로그아웃</a>
 			 	</c:otherwise>
 			</c:choose>  
@@ -42,7 +42,7 @@
 		<td colspan="2" align="center">환영합니다</td>
 		<td align="center">
 			<c:if test="${ login.role eq 'admin' }">
-				<a href="getBorrowList">대출현황</a> |
+				<a href="borrowList">대출현황</a> |
 				<a href="getUserList"> 회원목록</a>
 			</c:if>
 		</td>
@@ -59,9 +59,9 @@
 		</button>
 		</td>
 		<td align="center">
-			<a href="getBookList">도서목록</a>
+			<a href="bookList">도서목록</a>
 			<c:if test="${ login.role eq 'user' }">
-			 	| <a href="getBorrowUser">대출내역</a>
+			 	| <a href="borrowUser">대출내역</a>
 			</c:if>
 		</td>
 		<td align="center">
@@ -73,8 +73,5 @@
 	</tr>
 </table>
 	
-
-
-
 
 

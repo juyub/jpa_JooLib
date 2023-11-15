@@ -24,10 +24,10 @@ import javax.persistence.Table;
 public class Board {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_jpa_board_boardno")
-    @SequenceGenerator(name = "seq_jpa_board_boardno", sequenceName = "seq_jpa_board_boardno", allocationSize = 1)
-    @Column(name = "boardno")
-    private Integer id;
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_jpa_board_boardNo")
+    @SequenceGenerator(name = "seq_jpa_board_boardNo", sequenceName = "seq_jpa_board_boardNo", allocationSize = 1)
+    private int boardNo;
 
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parentno")
@@ -36,19 +36,12 @@ public class Board {
 	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Board> children = new ArrayList<>();
 
-    @Column(name = "board_level")
-    private Integer level = 0;
-    
-    @Column(name = "userid")
+	@Column(name = "board_level")
+    private int level;
+	
     private String userId;
-
-    @Column(name = "title")
     private String title;
-
-    @Column(name = "content")
     private String content;
-
-    @Column(name = "regtime")
     private LocalDateTime regTime;
     
     @PrePersist
@@ -65,15 +58,14 @@ public class Board {
         }
     }
     
-    @Column(name = "hit")
-    private Integer hit = 0;
+    private int hit;
 
-	public Integer getId() {
-		return id;
+	public int getBoardNo() {
+		return boardNo;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setBoardNo(int boardNo) {
+		this.boardNo = boardNo;
 	}
 
 	public Board getParent() {
@@ -92,11 +84,11 @@ public class Board {
 		this.children = children;
 	}
 
-	public Integer getLevel() {
+	public int getLevel() {
 		return level;
 	}
 
-	public void setLevel(Integer level) {
+	public void setLevel(int level) {
 		this.level = level;
 	}
 
@@ -132,11 +124,11 @@ public class Board {
 		this.regTime = regTime;
 	}
 
-	public Integer getHit() {
+	public int getHit() {
 		return hit;
 	}
 
-	public void setHit(Integer hit) {
+	public void setHit(int hit) {
 		this.hit = hit;
 	}
     

@@ -47,13 +47,13 @@ public class BoardService {
 		return boardRepository.save(board);
 	}
     
-	public Board read(Integer id) {
-		return boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Board not found."));
+	public Board read(Integer boardNo) {
+		return boardRepository.findById(boardNo).orElseThrow(() -> new IllegalArgumentException("Board not found."));
 	}
 	
 	public void update(Board board) {
-	    Board existingBoard = boardRepository.findById(board.getId())
-	        .orElseThrow(() -> new IllegalArgumentException("Invalid board Id:" + board.getId()));
+	    Board existingBoard = boardRepository.findById(board.getBoardNo())
+	        .orElseThrow(() -> new IllegalArgumentException("Invalid board Id:" + board.getBoardNo()));
 	    existingBoard.setTitle(board.getTitle());
 	    existingBoard.setContent(board.getContent());
 	    boardRepository.save(existingBoard);
@@ -64,9 +64,9 @@ public class BoardService {
 //	}	
 	
 	@Transactional
-	public void deleteWithChildren(Integer id) {
-	    Board board = boardRepository.findById(id)
-	        .orElseThrow(() -> new IllegalArgumentException("Invalid board Id:" + id));
+	public void deleteWithChildren(Integer boardNo) {
+	    Board board = boardRepository.findById(boardNo)
+	        .orElseThrow(() -> new IllegalArgumentException("Invalid board Id:" + boardNo));
 	    for(Board child : board.getChildren()){
 	        boardRepository.delete(child);
 	    }
@@ -74,9 +74,9 @@ public class BoardService {
 	}  
     
 	@Transactional
-	public void addReply(Board board, Integer parentId) {
-	    Board parent = boardRepository.findById(parentId)
-	        .orElseThrow(() -> new IllegalArgumentException("Invalid board Id:" + parentId));
+	public void addReply(Board board, Integer parentno) {
+	    Board parent = boardRepository.findById(parentno)
+	        .orElseThrow(() -> new IllegalArgumentException("Invalid board Id:" + parentno));
 
 	    Board newBoard = new Board();
 	    newBoard.setParent(parent);

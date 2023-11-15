@@ -8,6 +8,6 @@ import jpa_JooLib.entity.User;
 @Repository("userRepository")
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-	User findByUserid(String userid);
+	User findByUserId(String userId);
 	
 }

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -14,46 +15,32 @@ import javax.persistence.Table;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_jpa_user_userNo")
+    @SequenceGenerator(name = "seq_jpa_user_userNo", sequenceName = "seq_jpa_user_userNo", allocationSize = 1)
+	private int userNo;
 	
-	@Column(name = "userno")
-	private int userno;
-	
-	@Column(name = "userid")
-	private String userid;
-	
-	@Column(name = "password")
+	private String userId;
 	private String password;
-	
-	@Column(name = "name")
 	private String name;
-	
-	@Column(name = "phone")
 	private String phone;
-	
-	@Column(name = "borrown")
 	private int borrown;
-	
-	@Column(name = "joindate")
 	private Date joindate;
-	
-	@Column(name = "role")
 	private String role;
 
-	public int getUserno() {
-		return userno;
+	public int getUserNo() {
+		return userNo;
 	}
 
-	public void setUserno(int userno) {
-		this.userno = userno;
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
 
-	public String getUserid() {
-		return userid;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getPassword() {

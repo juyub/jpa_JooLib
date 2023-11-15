@@ -18,12 +18,13 @@
 	<section>
 		<h1 style="text-align: center">답글쓰기</h1>
 		<form name="frmReply" method="post" action="addReply">
-			<input type="hidden" name="id" value="${boardNO}" />
+			<input type="hidden" name="boardNo" value="${boardNo}" />
+			<%-- <input name="boardNo" value="${boardNo}" /> --%>
 			<table align="center">
 				<tr>
 					<td align="right">글쓴이&nbsp;</td>
 					<td>
-						<input type="text" size="5" name="userId" value="${login.userid}" readonly />
+						<input type="text" size="5" name="userId" value="${login.userId}" readonly />
 					</td>
 				</tr>
 				<tr>
@@ -43,7 +44,7 @@
 					<td align="right"></td>
 					<td>
 						<input type=submit value="답글반영하기" />
-						<button type="button" onclick="location.href='getBoard?id=${board.id}' ">취소</button>
+						<button type="button" onclick="location.href='getBoard?boardNo=${board.boardNo}' ">취소</button>
 					</td>
 				</tr>
 			</table>
