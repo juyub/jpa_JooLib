@@ -33,6 +33,10 @@ public class Board {
     @JoinColumn(name = "parentno")
     private Board parent;
 	
+	public Integer getParentBoardNo() {
+	    return parent != null ? parent.getBoardNo() : null;
+	}
+	
 	@OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Board> children = new ArrayList<>();
 
